@@ -1,8 +1,9 @@
+import React from 'react'
 import { statsCards } from '../utils/constants'
 import LineChart from '../components/charts/LineChart'
 import BarChart from '../components/charts/BarChart'
 
-const Dashboard = () => {
+const Dashboard: React.FC = () => {
 
   return (
     <div className="p-8">
@@ -36,7 +37,7 @@ const Dashboard = () => {
         </div>
 
       </div>
-      
+
     </div>
   )
 }

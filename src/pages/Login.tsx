@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { isEmpty } from 'lodash'
 import { useNavigate } from 'react-router'
 
-const Login = () => {
+const Login:React.FC  = () => {
     const [formData, setFormData] = useState({ username: '', password: '' })
     const [formErrors, setFormErrors] = useState<{ [key: string]: string }>({})
     const navigate = useNavigate()
@@ -12,12 +12,11 @@ const Login = () => {
         setFormData({ ...formData, [name]: value })
         delete formErrors[name]
     }
+    
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         const valid = handleValidation()
-
         if (isEmpty(valid)) {
-            //    api calls
             try {
                 await new Promise((resolve) => setTimeout(resolve, 2000))
                 const token = Math.random().toString(36).substring(2)
@@ -27,11 +26,10 @@ const Login = () => {
                 console.log('error: ', error);
             }
         } else {
-            console.log("po");
             setFormErrors(valid)
         }
-
     }
+
     const handleValidation = () => {
         let error: { [key: string]: string } = {}
         if (isEmpty(formData.username)) {
