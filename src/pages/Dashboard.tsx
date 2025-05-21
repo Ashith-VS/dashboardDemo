@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { lazy } from 'react'
 import { statsCards } from '../utils/constants'
-import LineChart from '../components/charts/LineChart'
-import BarChart from '../components/charts/BarChart'
-import Card from '../components/Card'
-import GraphCard from '../components/GraphCard'
+const LineChart = lazy(() => import('../components/charts/LineChart'));
+const BarChart = lazy(() => import('../components/charts/BarChart'));
+const Card = lazy(() => import('../components/Card'));
+const GraphCard = lazy(() => import('../components/GraphCard'));
 
 const Dashboard: React.FC = () => {
 
