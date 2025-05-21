@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Userinputs } from '../utils/constants'
 import type { User } from '../types/user'
 import { toast } from 'react-toastify'
+import { networkRequest } from '../services/apiServices'
 
 const Users: React.FC = () => {
   const [users, setUsers] = useState<User[]>([])
@@ -13,13 +14,11 @@ const Users: React.FC = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch('https://jsonplaceholder.typicode.com/users');
-        if (!response.ok) {
-          throw new Error('Failed to fetch users');
-        }
-        const data = await response.json();
+        const data = await networkRequest('/users')
+        if (Array.isArray(data)) {
         setUsers(data);
         setFilteredUsers(data)
+        }
       } catch (err) {
         console.log('err: ', err);
       }
@@ -74,6 +73,7 @@ const Users: React.FC = () => {
 
   return (
     <div className="p-8  bg-gray-100 dark:bg-black min-h-screen">
+      
       <div className="flex justify-between items-center mb-6">
         <h1 className='text-center text-2xl font-bold mb-6 dark:text-white'>Users</h1>
         <div className="flex items-center justify-center space-x-4">

@@ -3,6 +3,7 @@ import { isEmpty } from 'lodash'
 import { useNavigate } from 'react-router'
 import { useAppDispatch } from '../redux/hooks'
 import { login } from '../redux/slice/authSlice'
+import { authServices } from '../services/authServices'
 
 const Login: React.FC = () => {
     const [formData, setFormData] = useState({ username: '', password: '' })
@@ -18,19 +19,17 @@ const Login: React.FC = () => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        const valid = handleValidation()
-        if (isEmpty(valid)) {
+        const errors = handleValidation()
+        if (isEmpty(errors)) {
             try {
-                await new Promise((resolve) => setTimeout(resolve, 2000))
-                const token = Math.random().toString(36).substring(2)
+                await authServices.login(formData.username,formData.password)
                 dispatch(login(formData.username))
-                localStorage.setItem('auth-token', token)
                 navigate('/dashboard')
             } catch (error) {
                 console.log('error: ', error);
             }
         } else {
-            setFormErrors(valid)
+            setFormErrors(errors)
         }
     }
 
