@@ -12,6 +12,7 @@
   "dependencies": {
     "@reduxjs/toolkit": "^2.8.2",
     "@tailwindcss/vite": "^4.1.7",
+    "@types/lodash": "^4.17.17",
     "chart.js": "^4.4.9",
     "lodash": "^4.17.21",
     "react": "^19.1.0",
@@ -19,6 +20,7 @@
     "react-dom": "^19.1.0",
     "react-redux": "^9.2.0",
     "react-router": "^7.6.0",
+    "react-toastify": "^11.0.5",
     "tailwindcss": "^4.1.7"
   },
   "devDependencies": {

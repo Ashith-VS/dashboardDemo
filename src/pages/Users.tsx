@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Userinputs } from '../utils/constants'
 import type { User } from '../types/user'
+import { toast } from 'react-toastify'
 
 const Users: React.FC = () => {
   const [users, setUsers] = useState<User[]>([])
@@ -47,7 +48,7 @@ const Users: React.FC = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (!newUser.name.trim() || !newUser.email.trim() || !newUser.companyName.trim()) {
-      alert('Please fill in all fields');
+      toast.warn("Please fill all fields")
       return;
     }
     const userToAdd = {
@@ -72,38 +73,38 @@ const Users: React.FC = () => {
   };
 
   return (
-    <div className="p-8">
+    <div className="p-8  bg-gray-100 dark:bg-black min-h-screen">
       <div className="flex justify-between items-center mb-6">
-        <h1 className='text-center text-2xl font-bold mb-6'>Users</h1>
+        <h1 className='text-center text-2xl font-bold mb-6 dark:text-white'>Users</h1>
         <div className="flex items-center justify-center space-x-4">
           <input
             type="text"
             placeholder="Search by name..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="p-2 border rounded-full "
+            className="p-2 border rounded-full dark:bg-gray-800 dark:text-white dark:border-gray-600"
           />
           <button
             onClick={toggleSortOrder}
-            className="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded"
+            className="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded dark:bg-gray-700 dark:hover:bg-gray-600 text-black dark:text-white"
           >
             Sort {sortOrder === 'asc' ? 'A-Z' : 'Z-A'}
           </button>
         </div>
       </div>
       {/* user form Fields */}
-      <div className="bg-white p-6 rounded-lg shadow mb-8">
+      <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow mb-8">
         <form onSubmit={handleSubmit} className='grid grid-cols-1 md:grid-cols-3 gap-4'>
           {Userinputs.map((item) =>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">{item.label}</label>
+            <div key={item.name}>
+              <label className="block text-sm font-medium text-gray-700 mb-1 dark:text-gray-300">{item.label}</label>
               <input
                 type="text"
                 name={item.name}
                 value={newUser[item.name as keyof typeof newUser]}
                 placeholder={item.placeholder}
                 onChange={handleInputChange}
-                className="w-full p-2 border rounded"
+                className="w-full p-2 border rounded dark:bg-gray-700 dark:text-white dark:border-gray-600"
               />
             </div>
           )}
@@ -119,25 +120,25 @@ const Users: React.FC = () => {
       </div>
       {/* user Table */}
       {filteredUsers.length === 0 ? (
-        <div className="bg-white p-8 rounded-lg shadow text-center">
+        <div className="bg-white dark:bg-gray-800  p-8 rounded-lg shadow text-center">
           <p className="text-gray-500">No users found</p>
         </div>
       ) : (
-        <div className="bg-white rounded-lg shadow overflow-hidden">
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow overflow-hidden">
+          <table className="min-w-full divide-y divide-gray-200  dark:divide-gray-600">
+            <thead className="bg-gray-50 dark:bg-gray-700">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Company</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300">Name</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300">Email</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300">Company</th>
               </tr>
             </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
+            <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
               {filteredUsers.map(user => (
                 <tr key={user.id}>
-                  <td className="px-6 py-4 whitespace-nowrap">{user.name}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">{user.email}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">{user.company.name}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-gray-900   dark:text-white">{user.name}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-gray-900  dark:text-white">{user.email}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-gray-900  dark:text-white">{user.company.name}</td>
                 </tr>
               ))}
             </tbody>
